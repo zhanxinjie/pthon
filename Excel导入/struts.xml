@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<!-- <constant name="struts.objectFactory" value="spring"></constant> -->
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="utf8" />
+	 
+	 <!-- 默认的action -->
+    <package name="default" namespace="" extends="struts-default">
+    	<default-action-ref name="index"></default-action-ref>
+    	<action name="index" class="userAction">
+    		<result>/index.jsp</result>
+    	</action>
+    </package>
+    
+	<!-- 关于user的 -->
+	<package name="user" extends="struts-default" namespace="/">
+		<!-- 用户注册  -->
+		<!-- struts2会根据action的class="userAction"去容器里找名字叫userAction的bean  -->
+		<action name="register" class="userAction" >
+			<result name="go">/register.jsp</result>
+		</action>
+		<!-- 用户登录  -->
+		<action name="login" class="userAction" >
+			<result name="success">/register.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="goAdmin" type="redirect">/admin/main.html</result>
+		</action>
+	</package>
+
+	<!-- 后台管理 -->
+	<package name="admin" extends="struts-default" namespace="/admin">
+	
+		<!-- 后台首页 -->
+		<action name="blank" class="userAction" method="readSession">
+			<result name="success">/admin_gl/index.jsp</result>
+		</action>
+		<!-- 返回前台首页 -->
+		<action name="index" class="userAction" method="readSession">
+			<result type="redirectAction">
+			   <param name="namespace">/</param>
+			   <param name="actionName">index</param>
+			</result>
+		</action>
+		
+		<!-- Excel导入数据库-->
+		<action name="roleFileUpload" class="roleFileAction" method="loadRoleFile">  
+   			 <result name="success">/admin_gl/lead_data.jsp</result>  
+    		<result name="input">/admin_gl/lead_data.jsp</result>
+		</action> 
+		
+		
+		<!-- 用户管理 -->
+		<action name="user" class="userAction">
+			<result name="success">/admin_gl/user_list.jsp</result>
+			<result name="go">/admin_gl/user_add_edit.jsp</result>
+		</action>
+		
+		<!-- 订单管理 -->
+		<action name="dingdan" class="indentAction">
+			<result name="success">/admin_gl/dingdan_add.jsp</result>
+			<result name="findAll">/admin_gl/dingdan_list.jsp</result>
+			<result name="excel">/admin_gl/toExcel.jsp</result>
+			<result name="goList" type="redirect">/admin/dingdan!findAll?delmsg=${delmsg}</result>
+		</action>
+		<!-- 产品管理 -->
+		<action name="product" class="productAction">
+			<result name="success">/admin_gl/product_add.jsp</result>
+			<result name="findAll">/admin_gl/product_list.jsp</result>
+			<result name="goList" type="redirect">/admin/product!findAll</result>
+		</action>
+		<!-- 厂商管理 -->
+		<action name="changshang" class="changshangAction">
+			<result name="success">/admin_gl/changshang_add.jsp</result>
+			<result name="findAll">/admin_gl/changshang_list.jsp</result>
+			<result name="goList" type="redirect">/admin/changshang!findAll</result>
+		</action>
+		<!-- 元件管理 -->
+		<action name="part" class="partAction">
+			<result name="success">/admin_gl/part_add.jsp</result>
+			<result name="findAll">/admin_gl/part_list.jsp</result>
+			<result name="goList" type="redirect">/admin/part!findAll?indent_id=${part.indent_id}</result>
+		</action>
+		<!-- 生产单管理 -->
+		<action name="porder" class="porderAction">
+			<result name="success">/admin_gl/porder_add.jsp</result>
+			<result name="findAll">/admin_gl/part_list.jsp</result>
+			<result name="goList" type="redirect">/admin/part!findAll?indent_id=${porder.indent_id}</result>
+		</action>
+		
+		
+	</package>
+</struts>
