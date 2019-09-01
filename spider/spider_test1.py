@@ -1,9 +1,24 @@
-import spider
-from pyquery import pyQuery as pq
-from time import sleep
-import threading
+import requests
+import urllib
+import parse
+import json
 
-url = ""
+url = "https://www.huya.com/cache10min.php?callback=ajaxGetHeaderAd&m=PResource&do=ajaxGetPResource&type=4&area=24&num=1"
 
-#获取图片的url地址
-img_url =
+
+headers = {
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)   Chrome/76.0.3809.100 Safari/537.36"
+}
+
+requests = urllib.request.Request(url, headers = headers)
+print(requests)
+
+# response = requests
+
+# response = requests.get(url = url, headers = headers)
+#
+# res = response.json()
+#
+# result = res["data"]
+# print(res)
+

@@ -55,7 +55,7 @@ class Web_OSCE_Tests(unittest.TestCase):
         print(" -- set up finished -- ")
         print()
 
-        self.url = "http://192.168.0.125"
+        url = "http://47.107.82.25"
         # 导航到临床业务系统的主页
         self.driver.get(url)
         print(self.driver.title)
@@ -70,7 +70,7 @@ class Web_OSCE_Tests(unittest.TestCase):
         time.sleep(3)
 
         username.send_keys("admin")#输入帐号
-        userpass.send_keys("admin")#输入密码
+        userpass.send_keys("jfr2019")#输入密码
         time.sleep(2)
         loginbtn.click()#点击登录按钮
         time.sleep(2)
@@ -79,11 +79,11 @@ class Web_OSCE_Tests(unittest.TestCase):
         print()
 
     def test_02_add(self,url):
-##        self.driver.get("http://172.16.50.204/backstage/index.jsp/")
-##        self.driver.find_element_by_link_text('后台管理').click()
-##        time.sleep(10)
+        self.driver.get("http://47.107.82.25/backstage/index.jsp/")
+        self.driver.find_element_by_link_text('后台管理').click()
+        time.sleep(10)
         
-        self.driver.get(url+"/backstage/Subject.action")
+        self.driver.get("http://47.107.82.25/Subject.action/")
         time.sleep(10)
         self.driver.find_element_by_link_text('新增').click()
         time.sleep(10)
@@ -94,9 +94,9 @@ class Web_OSCE_Tests(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self):
-        # close the browser window
-        #js = 'javascript:logout(17005)'
-        #self.driver.execute_script(js)
+        #close the browser window
+        js = 'javascript:logout(17005)'
+        self.driver.execute_script(js)
 
         self.driver.quit()## 关闭浏览器
         pass

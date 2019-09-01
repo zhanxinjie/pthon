@@ -1,0 +1,8 @@
+day02-爬虫
+
+1、post
+2、ajax
+3、复杂get
+4、URLError\HTTPError
+5、Handler处理器、自定义Opener
+6、代理

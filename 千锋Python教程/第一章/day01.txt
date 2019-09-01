@@ -1,0 +1,67 @@
+3、fidder
+    一个网页的呈现，中间不止一次http请求，平均一个网页差不多10-15个http请求。
+    谷歌：
+    右键开发者工具，network
+    点击请求，右边栏请求详细信息
+        右边栏：request header response
+        query string：get参数
+        form data：post参数
+    fidder：
+    1、配置
+        tools==>option==>https
+        选中：capture https
+              decrypt https trafic
+              ignore xxx
+        点击右边的action，信任根证书
+        配置完毕后，fidder关闭重启即可
+    2、抓包
+    <>：html内容
+    {json}：json数据，很有可能就是接口
+    {css}：css文件
+    {js}：js文件
+
+    点击请求，右边选中Inspectors
+    右上：http请求信息
+          raw：请求头部的详细信息
+          webforms：请求所带参数，query_string formdata
+    右下：http响应信息
+          首先点击黄色条进行解码
+          raw：响应的所有信息
+          header：响应头
+          json：接口返回的内容
+    左下黑色框，输入指令
+          clear：清除所有请求
+          select json：快熟选择所有json的请求
+          select image：快熟选择所有图片的请求
+          select html：快熟选择所有html的请求
+          ？内容：搜索包含这个内容的所有请求，回车执行
+
+4、urllib库
+    模拟浏览器发送请求的库，python自带
+    python2：urllib urllib2
+    python3：urllib.request urllib.parse
+
+    字符串==》二进制字符串之间的转化
+        encode()  字符串==》二进制，默认utf8，另外可写gbk
+        decode()  二进制==》字符串，默认utf8，另外可写gbk
+
+    urllib.request
+        urlopen
+        urlretrieve
+
+    urllib.parse
+        quote       url编码函数，将中文进行转化为%xxx
+        unquote     url解码函数，将%xxx转化为指定字符
+        urlencode   给一个字典，将字典拼接为query_string,并且实现了编码的功能
+
+    response
+        read()              读取相应内容，内容是字节类型
+        geturl()            获取请求的url
+        getheaders()        获取头部信息，列表里面有元组
+        getcode()           获取状态码
+        readlines()         按行读取，返回列表，都是字节类型
+
+    5、get方式
+    6、构建请求头部信息（反爬第一步）
+       伪装自己的UA,让服务端认为你是浏览器在上网
+       构建请求对象：urllib.request.Request()
