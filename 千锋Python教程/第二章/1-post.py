@@ -1,7 +1,7 @@
 import urllib.request
 import urllib.parse
 
-post_url = 'http://fanyi.baidu.con/sug'
+post_url = 'https://fanyi.baidu.com/?aldtype=16047#en/zh/'
 
 word = input('请输入您要查询的英文单词：')
 #构建post表单数据
