@@ -1,0 +1,43 @@
+添加库：Creat
+
+删：
+删除表：drop table tbname
+
+
+改：
+Update tbname set id=2 where id=1
+
+查:
+查询表结构：desc tbname
+查询表内数据：select * from tbname(where name ="xiaoming")
+
+python DB-API使用流程：
+
+1、引入API模块
+import pymysql
+2、获取数据库连接
+Con = pymysql.connect(
+    User = "root",
+    Passwd = "123",
+    Host = "localhost",
+    Db = "class",
+    Port =3306,
+    Charset = "utf8",
+)
+
+3、实例化游标：
+    Cur=con.cursor()
+
+4、执行SQL语句
+    Cur.execute(sql语句)
+
+5、查看数据库
+    Cur.fetchone()查看一条
+    Cur.fetchmany()查看多条
+    Cur.fetchall()查看所有
+
+6、关闭数据库
+    Cur.commit()提交代码执行的结果
+    Cur.rollback()回滚
+    Cur.close()关闭游标
+    Con.close()
