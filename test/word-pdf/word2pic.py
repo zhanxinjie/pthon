@@ -22,7 +22,7 @@ def word2pic(path,zip_path,tmp_path,store_path):
     #进行解压
     f = zipfile.ZipFile(zip_path, "r")
     #将图片提取并保存
-    for file in f.namelist()
+    for file in f.namelist():
         f.extract(file,tmp_path)
     #释放该zip文件
     f.close()
@@ -32,18 +32,42 @@ def word2pic(path,zip_path,tmp_path,store_path):
     #得到缓存文件夹中图片列表
     pic = os.listdir(os.path.join(tmp_path,'word/media'))
 
+    #将图片复制到最终的文件夹中
+    for i in pic:
+        #根据word的路径生成图片的名称
+        new_name = path.replace('\\' , '_')
+        new_name = new_name.replace(':' , '') + '_' + i
+        shutil.copy(os.path.join(tmp_path + '/word/media',i),os.path.join(store_path,new_name))
 
+    #删除缓冲文件夹中的文件，用以储存下一次的文件
+    for i in os.listdir(tmp_path):
+        #如果是文件夹则删除
+        # print(os.listdir(tmp_path))
+        if os.path.isdir(os.path.join(tmp_path, i)):
+            shutil.rmtree(os.path.join(tmp_path, i))
 
-
-if __name__ == "__mian__":
-    #源文件
-    path = r'E:\pthon\pthon\test\word-pdf\.docx'
+if __name__ == "__main__":
+    # #源文件
+    # path = r'E:\pthon\pthon\test\word-pdf\.docx'
+    # #docx重命名为zip
+    # zip_path =r'E:\pthon\pthon\test\word-pdf\.zip'
+    # #中转图片文件夹
+    # tmp_path =r'E:\pthon\pthon\test\word-pdf\tem'
+    # #最后保存结果的文件夹
+    # store_path =r'E:\pthon\pthon\test\word-pdf\测试'
+   #源文件
+    path = r'F:\python_project\pthon\test\word-pdf\临床技能中心管理平台V2.0.0技术白皮书-20180706.docx'
     #docx重命名为zip
-    zip_path =r'E:\pthon\pthon\test\word-pdf\.zip'
+    zip_path =r'F:\python_project\pthon\test\word-pdf\临床技能中心管理平台V2.0.0技术白皮书-20180706.zip'
     #中转图片文件夹
-    tmp_path =r''
+    tmp_path =r'F:\python_project\pthon\test\word-pdf\tmp'
     #最后保存结果的文件夹
-    store_path =r''
+    store_path =r'F:\python_project\pthon\test\word-pdf\测试'
+    if os.path.exists(store_path):
+        print("文件夹已存在，请重新创建新文件夹！")
+        raise SystemExit()
+    else:
+        os.mkdir(store_path)
     m = word2pic(path, zip_path, tmp_path, store_path)
 
 
