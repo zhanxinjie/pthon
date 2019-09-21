@@ -27,6 +27,7 @@ class UiAutoTestCase(unittest.TestCase):
         :return:
         """
         return etree.HTML(html).xpath(xpath)
+        # print(etree.HTML(html).xpath(xpath))
     
     def save_img(self, img_name):
         """
@@ -39,7 +40,8 @@ class UiAutoTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """ set Up method """
-        cls.driver = webdriver.Firefox()
+        # cls.driver = webdriver.Firefox()
+        cls.driver = webdriver.Chrome()
         cls.test_page = 'http://testerlife.com'
     
     def tearDown(self):
