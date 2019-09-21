@@ -48,21 +48,13 @@ def word2pic(path,zip_path,tmp_path,store_path):
 
 if __name__ == "__main__":
     # #源文件
-    # path = r'E:\pthon\pthon\test\word-pdf\.docx'
-    # #docx重命名为zip
-    # zip_path =r'E:\pthon\pthon\test\word-pdf\.zip'
-    # #中转图片文件夹
-    # tmp_path =r'E:\pthon\pthon\test\word-pdf\tem'
-    # #最后保存结果的文件夹
-    # store_path =r'E:\pthon\pthon\test\word-pdf\测试'
-   #源文件
-    path = r'F:\python_project\pthon\test\word-pdf\临床技能中心管理平台V2.0.0技术白皮书-20180706.docx'
+    path = r'.\临床技能中心管理平台V2.0.0技术白皮书-20180706.docx'
     #docx重命名为zip
-    zip_path =r'F:\python_project\pthon\test\word-pdf\临床技能中心管理平台V2.0.0技术白皮书-20180706.zip'
+    zip_path =r'.\临床技能中心管理平台V2.0.0技术白皮书-20180706.zip'
     #中转图片文件夹
-    tmp_path =r'F:\python_project\pthon\test\word-pdf\tmp'
+    tmp_path =r'.\tem'
     #最后保存结果的文件夹
-    store_path =r'F:\python_project\pthon\test\word-pdf\测试'
+    store_path =r'.\测试'
     if os.path.exists(store_path):
         print("文件夹已存在，请重新创建新文件夹！")
         raise SystemExit()

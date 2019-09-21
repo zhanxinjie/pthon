@@ -1,7 +1,7 @@
 import urllib.request
 import urllib.parse
 
-url = "https://movie.douban.com/j/chart/top_list?type=5&interval_id=100%3A90&action=&start=60&limit=20"
+url = "https://movie.douban.com/j/chart/top_list?type=5&interval_id=100%3A90&action=&"
 
 page = int(input("请输入想要第几页的数据："))
 #start=0 limit=20
