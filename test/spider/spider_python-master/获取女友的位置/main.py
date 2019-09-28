@@ -172,6 +172,6 @@ class Location(object):
 if __name__ == '__main__':
     # 女朋友发过来的图片【原图】
     # location = Location(str(input("请输入图片所在的位置：")))
-    location = Location('./picture/门禁-接线图1.jpg')
+    location = Location('./picture/123.jpg')
     # 找到女朋友的地理位置
     location.run()

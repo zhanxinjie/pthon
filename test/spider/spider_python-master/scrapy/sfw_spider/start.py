@@ -12,6 +12,11 @@
 @time: 11/15/18 21:04 
 @description： Traceback
 """
+
+'''
+pip install scrapy
+'''
+
 from scrapy import cmdline
 
 cmdline.execute('scrapy crawl sfw_spider'.split())
