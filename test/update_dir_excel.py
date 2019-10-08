@@ -1,4 +1,4 @@
-''''
+"""
 使用win32api模块中的ShellExecute()函数来运行其他程序,格式如下
 ShellExecute(hwnd, op, file, args, dir, show)
 hwnd:父窗口的句柄，如果没有父窗口，则为0
@@ -23,7 +23,10 @@ encoding:指定写入编码，string类型。
 pip install pypiwin32
 pip install xlsxwriter
 pip install pandas
-'''
+pip install pyinstaller
+
+pyinstaller.exe -F 文件路径/要打包的文件.py
+"""
 from time import sleep
 import os
 import win32api
@@ -31,17 +34,23 @@ import xlsxwriter
 import pandas as pd
 import re
 
-import warnings
-warnings.filterwarnings('ignore')
 
 def replace_data(file_name,file_new_name):
+    pass
+
+
+def pandas_replace_data1(file_name,file_new_name):
+    print(content)
     df = pd.read_excel(file_name)  # 这个会直接默认读取到这个Excel的第一个表单
     df['所在目录/文件名'] = df['所在目录/文件名'].str.replace('C:', '')
     print('已去掉盘符')
     # df1 = df['所在目录/文件名'].str.contains('C:').fillna('') #测试是否包含‘C:’
     # df1 = df['所在目录/文件名'].str.split(r'C:').str[1] #分列
     # df.to_excel(file_name, index=False, encoding='utf-8')
-    df.to_excel(file_new_name, index=False, encoding='utf-8')
+    # writer = pd.ExcelWriter(file_name)
+    writer = pd.ExcelWriter(file_new_name)
+    df.to_excel(writer, index=False, encoding='utf-8')
+    writer.save()
     print('已写入到excel文件中')
 
     # df = pd.read_excel(file_name, sheet_name='FileList')  # 可以通过sheet_name来指定读取的表单
@@ -89,8 +98,8 @@ def main(dir_path,software_path,file_name):
                 # print("已关闭EXCEL程序！")
             except:
                 continue
-            replace_data(file_name,file_new_name)
-            # os.rename(file_name,file_new_name)//修改文件名
+            # replace_data(file_name,file_new_name)
+            os.rename(file_name,file_new_name)//修改文件名
             print('已成功修改文件名!!!')
             break;
         else:
@@ -106,8 +115,8 @@ if __name__ == '__main__':
     #生成的文件名
     file_name = os.path.join(dir_path, r"FileList.xlsx")
     #新的文件名
-    file_new_name = os.path.join(dir_path, r"新文件.xlsx")
+    file_new_name = os.path.join(dir_path, r"新文件.xls")
     #运行主程序
     main(dir_path,software_path,file_name)
-    # replace_data(file_name)
+    # replace_data(file_name,file_new_name)
 

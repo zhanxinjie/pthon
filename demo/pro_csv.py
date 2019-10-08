@@ -12,7 +12,7 @@ import csv
 import codecs  
   
 c = open("test.csv","w", newline='',encoding='utf-8')    #创建文件  
-writer = csv.writer(c, dialect='excel')       #写入对象  
+writer = csv.writer(c, dialect='excel')       #写入对象
 writer.writerow(['产品','价格','单位','批发地','时间'])  
   
 i = 1  
