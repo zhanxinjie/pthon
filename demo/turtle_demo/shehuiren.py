@@ -267,8 +267,8 @@ def setting():          #参数设置
     color((255,155,192),"pink")
     setup(840,500)
     speed(10)
-
-def main():
+main():
+def
     setting()           #画布、画笔设置
     nose(-100,100)      #鼻子
     head(-69,167)       #头
