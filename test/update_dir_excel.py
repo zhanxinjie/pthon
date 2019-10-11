@@ -24,23 +24,35 @@ pip install pypiwin32
 pip install xlsxwriter
 pip install pandas
 pip install pyinstaller
+pip install gitpython
 
 pyinstaller.exe -F 文件路径/要打包的文件.py
 """
 from time import sleep
+import datetime
 import os
 import win32api
-import xlsxwriter
+# import xlsxwriter
 import pandas as pd
-import re
+# import re
+from git import Repo
 
+allFileNum = 0
+
+def git_pull(file_name):
+    # 创建版本库对象
+    repo = Repo(file_name)
+    # 获取默认版本库
+    remote = repo.remote()
+    # git pull
+    remote.pull()
+    print('更新了本地git库')
 
 def replace_data(file_name,file_new_name):
     pass
 
 
 def pandas_replace_data1(file_name,file_new_name):
-    print(content)
     df = pd.read_excel(file_name)  # 这个会直接默认读取到这个Excel的第一个表单
     df['所在目录/文件名'] = df['所在目录/文件名'].str.replace('C:', '')
     print('已去掉盘符')
@@ -70,6 +82,57 @@ def pandas_replace_data1(file_name,file_new_name):
     # print("输出值", df.sample(3).values)  # 这个方法类似于head()方法以及df.values方法
     print(print("获取到所有的值:\n{0}".format(data)))  # 格式化输出
 
+def file_all_name(file_dir):
+    '''
+    :param file_dir:
+    :return:
+    '''
+    for root, dirs, files in os.walk(file_dir):
+        print("root",root)  # root是指当前目录路径(文件夹的绝对路径)
+        print("dirs",dirs)  # dirs是指路径下所有的子目录(文件夹里的文件夹)
+        print("files",files)  # files是指路径下所有的文件(文件夹里所有的文件)
+    # for files in os.listdir(file_dir):  # 不仅仅是文件，当前目录下的文件夹也会被认为遍历到
+    #     print("files", files)
+
+def printPath(level, path):
+    global allFileNum
+    ''''' 
+    打印一个目录下的所有文件夹和文件 
+    '''
+    # 所有文件夹，第一个字段是次目录的级别
+    dirList = []
+    # 所有文件
+    fileList = []
+    # 返回一个列表，其中包含在目录条目的名称(google翻译)
+    files = os.listdir(path)
+    # 先添加目录级别
+    dirList.append(str(level))
+    for f in files:
+        if(os.path.isdir(path + '/' + f)):
+            # 排除隐藏文件夹。因为隐藏文件夹过多
+            if(f[0] == '.'):
+                pass
+            else:
+                # 添加非隐藏文件夹
+                dirList.append(f)
+        if(os.path.isfile(path + '/' + f)):
+            # 添加文件
+            fileList.append(f)
+    # 当一个标志使用，文件夹列表第一个级别不打印
+    i_dl = 0
+    for dl in dirList:
+        if(i_dl == 0):
+            i_dl = i_dl + 1
+        else:
+            # 打印至控制台，不是第一个的目录
+            print('-' * (int(dirList[0])), dl)
+            # 打印目录下的所有文件夹和文件，目录级别+1
+            printPath((int(dirList[0]) + 1), path + '/' + dl)
+    for fl in fileList:
+        # 打印文件
+        print('-' * (int(dirList[0])), fl)
+        # 随便计算一下有多少个文件
+        allFileNum = allFileNum + 1
 
 def main(dir_path,software_path,file_name):
     '''
@@ -81,26 +144,33 @@ def main(dir_path,software_path,file_name):
     '''
     #dir_path下所有的文件
     content = os.listdir(dir_path)
+    print(content)
 
     while True:
+        git_pull(dir_path)
         new_content = os.listdir(dir_path)
         if new_content !=content:
             #打开ListFile这个软件
-            win32api.ShellExecute(0,'open',software_path,'',dir_path,1)
-
-            sleep(20)
+            win32api.ShellExecute(0,'open',software_path,'',dir_path,0)
+            sleep(10)
             #关闭自动打开的wps文件
             try:
                 os.system("taskkill /F /IM wps.exe")
                 print("已关闭WPS程序！")
-                sleep(20)
+                sleep(10)
                 # os.system("taskkill /F /EXCEL.exe")
                 # print("已关闭EXCEL程序！")
             except:
                 continue
             # replace_data(file_name,file_new_name)
-            os.rename(file_name,file_new_name)//修改文件名
-            print('已成功修改文件名!!!')
+            # 删除原有的文件
+            if os.path.exists(file_new_name):
+                os.remove(file_new_name)
+                os.rename(file_name, file_new_name)
+                print('已移除文件，且成功修改文件名!!!')
+            else:
+                os.rename(file_name, file_new_name) // 修改文件名
+                print('已成功修改文件名!!!')
             break;
         else:
             print("该目录没有变动！")
@@ -108,15 +178,20 @@ def main(dir_path,software_path,file_name):
 
 
 if __name__ == '__main__':
+    file_dir = r"E:\mep-doc"
     #目标目录的路径
-    dir_path = r"C:\Users\Administrator\Desktop\1232"
+    dir_path = r"E:\mep-doc"
+    # dir_path = r"C:\Users\Administrator\Desktop\1232"
     #ListFile这个软件的路径
-    software_path = r'C:\Users\Administrator\Desktop\1232\ListFile.exe'
+    software_path = os.path.join(dir_path, r"ListFile.exe")
     #生成的文件名
     file_name = os.path.join(dir_path, r"FileList.xlsx")
     #新的文件名
-    file_new_name = os.path.join(dir_path, r"新文件.xls")
+    file_new_name = os.path.join(dir_path, r"20.文件一览表.xlsx")
     #运行主程序
-    main(dir_path,software_path,file_name)
+    # main(dir_path,software_path,file_name)
+    # file_all_name(file_dir)
     # replace_data(file_name,file_new_name)
 
+    printPath(1, file_dir)
+    print('总文件数 =', allFileNum)
