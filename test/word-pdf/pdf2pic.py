@@ -64,7 +64,7 @@ def pdf2pic(path,pic_path):
 
 if __name__ == "__main__":
     # pdf路径
-    path = r'.\临床技能中心管理平台V2.0.0技术白皮书-20180706.pdf'
+    path = r'.\2018年审计报告扫描.pdf'
     pic_path = r".\测试"
     #创建保存图片的文件夹
     if os.path.exists(pic_path):

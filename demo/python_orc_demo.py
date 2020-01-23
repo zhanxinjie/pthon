@@ -81,4 +81,3 @@ def convert_picture_words():
 
 if __name__ == '__main__':
     convert_picture_words()
-     

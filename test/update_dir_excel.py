@@ -8,7 +8,26 @@ args:要向程序传递的参数，如果打开的是文件则为空
 dir :程序初始化的目录
 show:是否显示窗口
 使用ShellExecute函数，就相当于在资源管理器中双击文件图标，系统会打开相应程序运行。
+"""
+"""
+commands = {
+'关机'：'shutdown -s -t 1',
+'重启'：'shutdown -r',
+'打开百度'：[r'C:\chrome.exe',"http://www.baidu.com"],
+'关闭浏览器'：'taskkill /F/IM chrome.exe',
+'打开QQ'：r'D:\QQ\Bin\QQ.exe',
+'关闭QQ'：'taskkill /F/IM QQ.exe',
+'歌曲'：[r'C:\wmplayer.exe',r'E:\m_one.mp3'],
+'关闭音乐'：'taskkill /F/IM wmplayer.exe',
+'打开迅雷'：[r'C:\ThunderStart.exe'],
+'关闭迅雷'：'taskkill /F/IM Thunder.exe',
+}
 
+
+"""
+
+
+"""
 DataFrame.to_excel(excel_writer, sheet_name='Sheet1', na_rep='', float_format=None, columns=None, header=True, index=True, index_label=None, startrow=0, startcol=0, engine=None, merge_cells=True, encoding=None, inf_rep='inf', verbose=True, freeze_panes=None)
 该函数主要参数为:excel_writer。
 excel_writer:写入的目标excel文件，可以是文件路径、ExcelWriter对象;
@@ -17,9 +36,9 @@ na_rep:缺失值表示，string类型;
 header:是否写表头信息，布尔或list of string类型，默认为True;
 index:是否写行号，布尔类型，默认为True;
 encoding:指定写入编码，string类型。
+"""
 
-
-
+"""
 pip install pypiwin32
 pip install xlsxwriter
 pip install pandas
@@ -201,7 +220,7 @@ if __name__ == '__main__':
     #新的文件名
     file_new_name = os.path.join(dir_path, r"20.文件一览表.xlsx")
     #运行主程序
-    # main(dir_path,software_path,file_name)
+    main(dir_path,software_path,file_name)
     # file_all_name(file_dir)
     # replace_data(file_name,file_new_name)
 
