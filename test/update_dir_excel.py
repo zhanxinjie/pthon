@@ -107,6 +107,7 @@ def printPath(level, path):
     files = os.listdir(path)
     # 先添加目录级别
     dirList.append(str(level))
+    print(dirList)
     for f in files:
         if(os.path.isdir(path + '/' + f)):
             # 排除隐藏文件夹。因为隐藏文件夹过多
@@ -115,9 +116,11 @@ def printPath(level, path):
             else:
                 # 添加非隐藏文件夹
                 dirList.append(f)
+                print("2:"+dirList)
         if(os.path.isfile(path + '/' + f)):
             # 添加文件
             fileList.append(f)
+            print("2:" + fileList)
     # 当一个标志使用，文件夹列表第一个级别不打印
     i_dl = 0
     for dl in dirList:
@@ -178,7 +181,8 @@ def main(dir_path,software_path,file_name):
 
 
 if __name__ == '__main__':
-    file_dir = r"E:\mep-doc"
+##    file_dir = r"E:\mep-doc"
+    file_dir = r"F:\python_project\pthon\test"
     #目标目录的路径
     dir_path = r"E:\mep-doc"
     # dir_path = r"C:\Users\Administrator\Desktop\1232"

@@ -262,13 +262,14 @@ def tail(x,y):#尾巴
 
 def setting():          #参数设置
     pensize(4)
-    hideturtle()        #使乌龟无形（隐藏）
+    # hideturtle()        #使乌龟无形（隐藏）
     colormode(255)      #将其设置为1.0或255.随后 颜色三元组的r，g，b值必须在0 .. cmode范围内
     color((255,155,192),"pink")
-    setup(840,500)
+    setup(840,500)      #画布空间大小
     speed(10)
-main():
-def
+
+
+def main():
     setting()           #画布、画笔设置
     nose(-100,100)      #鼻子
     head(-69,167)       #头
